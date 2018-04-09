@@ -1,0 +1,6 @@
+# Define parameters for connecting to PostGres database
+PG_DATABASE=disaster
+PG_USER=postgres
+PG_HOST=postgis
+PG_PASSWORD=put_your_postgres_password_here
+PG_PORT=5432
