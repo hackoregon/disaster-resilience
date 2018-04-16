@@ -1,2 +1,4 @@
 *.pyc
-disaster_site/crednetials.py
+disaster_site/databases.py
+.vscode/
+db.sqlite3
