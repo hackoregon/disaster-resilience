@@ -1,0 +1,35 @@
+FROM python:3.6
+MAINTAINER Brian H. Grant <brian@hackoregon.org> & "M. Edward (Ed) Borasky <znmeb@znmeb.net>
+ENV PYTHONUNBUFFERED 1
+
+# Add Geo libraries
+RUN mkdir /code
+WORKDIR /code
+RUN apt-get update && apt-get install -y \
+  binutils \
+  gdal-bin \
+  libgeos-dev \
+  libproj-dev \
+&& rm -rf /var/lib/apt/lists/*
+
+# add PostgreSQL client libraries
+RUN apt-get update \
+  && apt-get install -qqy --no-install-recommends \
+  gnupg \
+  && apt-get clean
+RUN mkdir -p /etc/apt/sources.list.d/
+COPY jessie/pgdg.list.jessie /etc/apt/sources.list.d/pgdg.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+  && apt-get update \
+  && apt-get install -qqy --no-install-recommends \
+    libpq-dev \
+    postgresql-client-9.6 \
+  && apt-get clean
+
+COPY /requirements/* /code/
+RUN pip install -r production.txt
+
+RUN pip install -r geodjango.txt
+
+RUN python
+COPY . /code/
