@@ -1,5 +1,5 @@
 """
-WSGI config for dead_songs project.
+WSGI config for disaster_resilience project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dead_songs.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "disaster_resilience.settings")
 
 application = get_wsgi_application()

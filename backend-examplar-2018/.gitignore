@@ -103,3 +103,5 @@ ENV/
 /staticfiles
 
 **/.DS_Store
+
+.vscode/
