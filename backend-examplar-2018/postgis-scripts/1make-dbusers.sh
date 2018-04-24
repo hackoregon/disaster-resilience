@@ -1,10 +1,13 @@
 #! /bin/bash
 
-# create the users we'll be restoring to!
-for user in $DB_USERS_TO_CREATE
-do
-  echo "Creating database user $user"
-  createuser --no-createdb --no-createrole --no-superuser --no-replication $user
-  command="ALTER USER \"$user\" WITH PASSWORD '${TEAM_PASSWORD}';"
+# create the user we'll be restoring to!
+if [ "$DATABASE_OWNER" = "postgres" ]
+then
+  echo "'postgres' already exists - exiting normally"
+  exit 0
+else
+  echo "Creating database user '$DATABASE_OWNER'"
+  createuser --no-createdb --no-createrole --no-superuser --no-replication $DATABASE_OWNER
+  command="ALTER USER \"$DATABASE_OWNER\" WITH PASSWORD '${TEAM_PASSWORD}';"
   psql -c "$command"
-done
+fi
