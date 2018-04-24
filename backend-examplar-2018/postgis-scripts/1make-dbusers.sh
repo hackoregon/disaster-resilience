@@ -4,7 +4,6 @@
 if [ "$DATABASE_OWNER" = "postgres" ]
 then
   echo "'postgres' already exists - exiting normally"
-  exit 0
 else
   echo "Creating database user '$DATABASE_OWNER'"
   createuser --no-createdb --no-createrole --no-superuser --no-replication $DATABASE_OWNER
