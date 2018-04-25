@@ -23,14 +23,14 @@ class BuildingFootprints(models.Model):
         db_table = 'building_footprints'
 
 
-class DjangoMigrations(models.Model):
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
+# class DjangoMigrations(models.Model):
+#     app = models.CharField(max_length=255)
+#     name = models.CharField(max_length=255)
+#     applied = models.DateTimeField()
 
-    class Meta:
-        managed = False
-        db_table = 'django_migrations'
+#     class Meta:
+#         managed = False
+#         db_table = 'django_migrations'
 
 
 class ElectricalTransmissionStructures(models.Model):
