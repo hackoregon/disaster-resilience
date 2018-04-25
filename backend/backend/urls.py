@@ -25,5 +25,5 @@ import api
 urlpatterns = [
     path('api/', include('api.urls')),
     path('schema/', schema_view),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
 ]

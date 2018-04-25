@@ -1,18 +1,7 @@
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
 from api import preexisting_models
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups')
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ('url', 'name')
 
 class NeighborhoodUnitsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -27,11 +16,6 @@ class BuildingFootprintsSerializer(serializers.HyperlinkedModelSerializer):
 class ElectricalTransmissionStructuresSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = preexisting_models.ElectricalTransmissionStructures
-        fields = '__all__'
-
-class EmergencyTransportationRoutesSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = preexisting_models.EmergencyTransportationRoutes
         fields = '__all__'
 
 class HydrantsSerializer(serializers.HyperlinkedModelSerializer):

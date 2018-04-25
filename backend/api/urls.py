@@ -9,7 +9,6 @@ router = routers.DefaultRouter()
 router.register(r'NeighborhoodUnits', views.NeighborhoodUnitsSet)
 router.register(r'BuildingFootprints', views.BuildingFootprintsSet)
 router.register(r'ElectricalTransmissionStructures', views.ElectricalTransmissionStructuresSet)
-router.register(r'EmergencyTransportationRoutes', views.EmergencyTransportationRoutesSet)
 router.register(r'Hydrants', views.HydrantsSet)
 router.register(r'Jurisdictions', views.JurisdictionsSet)
 router.register(r'LossJurisdictionCszM9P0Dry', views.LossJurisdictionCszM9P0DrySet)
@@ -33,5 +32,5 @@ router.register(r'Services', views.ServicesSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     #path('', include('router.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

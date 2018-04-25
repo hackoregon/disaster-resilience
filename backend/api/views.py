@@ -27,14 +27,7 @@ class ElectricalTransmissionStructuresSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = preexisting_models.ElectricalTransmissionStructures.objects.all()
     serializer_class = serializers.ElectricalTransmissionStructuresSerializer
-
-
-class EmergencyTransportationRoutesSet(viewsets.ReadOnlyModelViewSet):
-    """
-    API endpoint that allows NeighborhoodUnits to be viewed or listed.
-    """
-    queryset = preexisting_models.EmergencyTransportationRoutes.objects.all()
-    serializer_class = serializers.EmergencyTransportationRoutesSerializer
+    
 
 class HydrantsSet(viewsets.ReadOnlyModelViewSet):
     """
