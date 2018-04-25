@@ -1,4 +1,0 @@
-*.pyc
-disaster_site/databases.py
-.vscode/
-db.sqlite3
