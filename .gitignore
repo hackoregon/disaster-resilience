@@ -1,3 +1,4 @@
 *.pyc
 *.code-workspace
 db.sqlite3
+*/.idea/*
