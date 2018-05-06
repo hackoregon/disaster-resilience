@@ -13,6 +13,21 @@ class BuildingFootprintsSerializer(serializers.HyperlinkedModelSerializer):
         model = preexisting_models.BuildingFootprints 
         fields = '__all__'
 
+class CensusBgAoiSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = preexisting_models.CensusBgAoi 
+        fields = '__all__'
+
+class CommunityCentersSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = preexisting_models.CommunityCenters 
+        fields = '__all__'
+
+class CountiesAoiSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = preexisting_models.CountiesAoi 
+        fields = '__all__'
+
 class ElectricalTransmissionStructuresSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = preexisting_models.ElectricalTransmissionStructures
@@ -21,6 +36,11 @@ class ElectricalTransmissionStructuresSerializer(serializers.HyperlinkedModelSer
 class HydrantsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = preexisting_models.Hydrants
+        fields = '__all__'
+
+class HospitalSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = preexisting_models.Hospital 
         fields = '__all__'
 
 class JurisdictionsSerializer(serializers.HyperlinkedModelSerializer):
@@ -112,3 +132,9 @@ class SpatialRefSysSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = preexisting_models.SpatialRefSys
         fields = '__all__'
+		
+class UnreinforcedMasonryBuildingsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = preexisting_models.UnreinforcedMasonryBuildings 
+        fields = '__all__'
+
