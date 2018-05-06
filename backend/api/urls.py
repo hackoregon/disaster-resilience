@@ -8,8 +8,12 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'NeighborhoodUnits', views.NeighborhoodUnitsSet)
 router.register(r'BuildingFootprints', views.BuildingFootprintsSet)
+router.register(r'CensusBgAoi', views.CensusBgAoiSet)
+router.register(r'CommunityCenters', views.CommunityCentersSet)
+router.register(r'CountiesAoi', views.CountiesAoiSet)
 router.register(r'ElectricalTransmissionStructures', views.ElectricalTransmissionStructuresSet)
 router.register(r'Hydrants', views.HydrantsSet)
+router.register(r'Hospital', views.HospitalSet)
 router.register(r'Jurisdictions', views.JurisdictionsSet)
 router.register(r'LossJurisdictionCszM9P0Dry', views.LossJurisdictionCszM9P0DrySet)
 router.register(r'LossJurisdictionCszM9P0Wet', views.LossJurisdictionCszM9P0WetSet)
@@ -27,6 +31,7 @@ router.register(r'PressurizedMains', views.PressurizedMainsSet)
 router.register(r'RegionalDrinkingWaterAdvisoryBoundary', views.RegionalDrinkingWaterAdvisoryBoundarySet)
 router.register(r'RegionalWaterDistricts', views.RegionalWaterDistrictsSet)
 router.register(r'Services', views.ServicesSet)
+router.register(r'UnreinforcedMasonryBuildings', views.UnreinforcedMasonryBuildings)
 
 
 urlpatterns = [

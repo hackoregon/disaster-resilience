@@ -21,6 +21,30 @@ class BuildingFootprintsSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.BuildingFootprintsSerializer
 
 
+class CensusBgAoiSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows CensusBgAoi to be viewed or listed.
+    """
+    queryset = preexisting_models.CensusBgAoi.objects.all()
+    serializer_class = serializers.CensusBgAoiSerializer
+
+
+class CommunityCentersSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows CommunityCenters to be viewed or listed.
+    """
+    queryset = preexisting_models.CommunityCenters.objects.all()
+    serializer_class = serializers.CommunityCentersSerializer
+
+
+class CountiesAoiSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows CountiesAoi to be viewed or listed.
+    """
+    queryset = preexisting_models.CountiesAoi.objects.all()
+    serializer_class = serializers.CountiesAoiSerializer
+
+
 class ElectricalTransmissionStructuresSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows NeighborhoodUnits to be viewed or listed.
@@ -35,6 +59,14 @@ class HydrantsSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = preexisting_models.Hydrants.objects.all()
     serializer_class = serializers.HydrantsSerializer
+
+
+class HospitalSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows Hospitals to be viewed or listed.
+    """
+    queryset = preexisting_models.Hospital.objects.all()
+    serializer_class = serializers.HospitalSerializer
 
 
 class JurisdictionsSet(viewsets.ReadOnlyModelViewSet):
@@ -172,7 +204,16 @@ class ServicesSet(viewsets.ReadOnlyModelViewSet):
     queryset = preexisting_models.Services.objects.all()
     serializer_class = serializers.ServicesSerializer
 
+class UnreinforcedMasonryBuildings(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows UnreinforcedMasonryBuildings to be viewed or listed.
+    """
+    queryset = preexisting_models.UnreinforcedMasonryBuildings.objects.all()
+    serializer_class = serializers.UnreinforcedMasonryBuildingsSerializer
 
+
+
+	
 # class SpatialRefSysSet(viewsets.ReadOnlyModelViewSet):
 #     """
 #     API endpoint that allows NeighborhoodUnits to be viewed or listed.
