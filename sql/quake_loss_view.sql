@@ -5,7 +5,9 @@
 CREATE OR REPLACE VIEW public.quake_loss AS 
  SELECT
     loss_jurisdiction_csz_m9p0_dry.objectid,
-   'loss_jurisdiction_csz_m9p0_dry'::text AS type,
+    'csz_m9p0'::text as quake_cd,
+    'dry'::text as condition_cd,
+    'jurisdiction'::text as area_type_cd,
     loss_jurisdiction_csz_m9p0_dry.jurisdiction,
     0 AS nuid,
     loss_jurisdiction_csz_m9p0_dry.bldgloss,
@@ -32,7 +34,9 @@ CREATE OR REPLACE VIEW public.quake_loss AS
 UNION
  SELECT
     loss_jurisdiction_csz_m9p0_wet.objectid,
-    'loss_jurisdiction_csz_m9p0_wet'::text AS type,
+    'csz_m9p0'::text as quake_cd,
+    'wet'::text as condition_cd,
+    'jurisdiction'::text as area_type_cd,
     loss_jurisdiction_csz_m9p0_wet.jurisdiction,
     0 AS nuid,
     loss_jurisdiction_csz_m9p0_wet.bldgloss,
@@ -59,7 +63,9 @@ UNION
 UNION
  SELECT
     loss_jurisdiction_phf_m6p8_dry.objectid,
-   'loss_jurisdiction_phf_m6p8_dry'::text AS type,
+    'phf_m6p8'::text as quake_cd,
+    'dry'::text as condition_cd,
+    'jurisdiction'::text as area_type_cd,
     loss_jurisdiction_phf_m6p8_dry.jurisdiction,
     0 AS nuid,
     loss_jurisdiction_phf_m6p8_dry.bldgloss,
@@ -86,7 +92,9 @@ UNION
 UNION
  SELECT
     loss_jurisdiction_phf_m6p8_wet.objectid,
-   'loss_jurisdiction_phf_m6p8_wet'::text AS type,
+    'phf_m6p8'::text as quake_cd,
+    'wet'::text as condition_cd,
+    'jurisdiction'::text as area_type_cd,
     loss_jurisdiction_phf_m6p8_wet.jurisdiction,
     0 AS nuid,
     loss_jurisdiction_phf_m6p8_wet.bldgloss,
@@ -113,7 +121,9 @@ UNION
 UNION
  SELECT
     loss_neighborhood_unit_csz_m9p0_dry.objectid,
-   'loss_neighborhood_unit_csz_m9p0_dry'::text AS type,
+    'csz_m9p0'::text as quake_cd,
+    'dry'::text as condition_cd,
+    'neighborhood_unit'::text as area_type_cd,
     ''::character varying AS jurisdiction,
     loss_neighborhood_unit_csz_m9p0_dry.nuid,
     loss_neighborhood_unit_csz_m9p0_dry.bldgloss,
@@ -140,7 +150,9 @@ UNION
 UNION
  SELECT
     loss_neighborhood_unit_csz_m9p0_wet.objectid,
-   'loss_neighborhood_unit_csz_m9p0_wet'::text AS type,
+    'csz_m9p0'::text as quake_cd,
+    'wet'::text as condition_cd,
+    'neighborhood_unit'::text as area_type_cd,
     ''::character varying AS jurisdiction,
     loss_neighborhood_unit_csz_m9p0_wet.nuid,
     loss_neighborhood_unit_csz_m9p0_wet.bldgloss,
@@ -167,7 +179,9 @@ UNION
 UNION
  SELECT
     loss_neighborhood_unit_phf_m6p8_dry.objectid,
-   'loss_neighborhood_unit_phf_m6p8_dry'::text AS type,
+    'phf_m6p8'::text as quake_cd,
+    'dry'::text as condition_cd,
+    'neighborhood_unit'::text as area_type_cd,
     ''::character varying AS jurisdiction,
     loss_neighborhood_unit_phf_m6p8_dry.nuid,
     loss_neighborhood_unit_phf_m6p8_dry.bldgloss,
@@ -194,7 +208,9 @@ UNION
 UNION
  SELECT
     loss_neighborhood_unit_phf_m6p8_wet.objectid,
-   'loss_neighborhood_unit_phf_m6p8_wet'::text AS type,
+    'phf_m6p8'::text as quake_cd,
+    'dry'::text as condition_cd,
+    'neighborhood_unit'::text as area_type_cd,
     ''::character varying AS jurisdiction,
     loss_neighborhood_unit_phf_m6p8_wet.nuid,
     loss_neighborhood_unit_phf_m6p8_wet.bldgloss,
