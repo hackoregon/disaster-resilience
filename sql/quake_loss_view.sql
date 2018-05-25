@@ -1,8 +1,8 @@
--- View: public.quake_loss
+-- View: public.quake_loss_view
 
--- DROP VIEW public.quake_loss;
+-- DROP VIEW public.quake_loss_view;
 
-CREATE OR REPLACE VIEW public.quake_loss AS 
+CREATE OR REPLACE VIEW public.quake_loss_view AS 
  SELECT
     loss_jurisdiction_csz_m9p0_dry.objectid,
     'csz_m9p0'::text as quake_cd,
@@ -235,5 +235,5 @@ UNION
     loss_neighborhood_unit_phf_m6p8_wet.pdscomplete
    FROM loss_neighborhood_unit_phf_m6p8_wet;
 
-ALTER TABLE public.quake_loss
+ALTER TABLE public.quake_loss_view
   OWNER TO postgres;
