@@ -129,6 +129,22 @@ def get_raster_stats_df(geom_ras, df_index, raster_file, raster_name, **kwargs):
     df_gs.rename(columns={co: raster_name+'_'+co for co in df_gs.columns}, inplace=True)
     return df_gs
 
+def get_geometry_raster_stats(gdf_merge, raster_params, **zonal_stats_params):
+    for raster_name in raster_params['names']:
+        # Step 3a 
+        raster_file = raster_params['root'] + raster_name + raster_params['ext']
+        print("Computing statistics for raster file = {}".format(raster_file))
+        raster_crs = get_raster_info_crs(raster_file, print_info=False)
+        # Step 3b
+        geom_ras = transform_gdf_to_crsout(gdf_merge, 'geometry', raster_crs)
+        # Step 3c 
+        gdf_merge = gdf_merge.join(
+            get_raster_stats_df(
+                geom_ras, gdf_merge.index, raster_file, raster_name, **zonal_stats_params
+            )
+        )
+    return gdf_merge
+
 def get_stats_classification(gdf, **kwargs):
     """Classify raster statistics using specified parameters in kwargs"""
     raster_names = [rn for rn in kwargs.keys() if rn != "stats_to_class"]
@@ -167,31 +183,20 @@ def get_mapsquare_rasterstats(lon, lat):
     params = load_config()
     # Step 2
     gdf_merge = get_geometry_from_point([lon, lat], **params['geometry']['from_point'])
-    #gdf_merge.info()
-    # Steps 3a through 3d are repeated for each raster file, results appended to gdf_merge
-    for raster_name in params['raster']['names']:
-        # Step 3a 
-        raster_file = params['raster']['root'] + raster_name + params['raster']['ext']
-        print("Computing statistics for raster file = {}".format(raster_file))
-        raster_crs = get_raster_info_crs(raster_file, print_info=False)
-        # Step 3b
-        geom_ras = transform_gdf_to_crsout(gdf_merge, 'geometry', raster_crs)
-        # Step 3c 
-        df_gs = get_raster_stats_df(geom_ras, gdf_merge.index, raster_file, raster_name, 
-                **params['zonal_stats']
-        )
-        # Step 3d
-        gdf_merge = gdf_merge.join(df_gs)
+    # Steps 3a-3d: repeat stats calculation for each raster file, append all results to gdf_merge
+    gdf_merge = get_geometry_raster_stats(gdf_merge, params['raster'], **params['zonal_stats'])
     # Step 4
     if 'stats_classification' in params:
-        gdf_merge_class = get_stats_classification(gdf_merge, **params['stats_classification'])
-        #gdf_merge_class.info()
+        gdf_merge = get_stats_classification(gdf_merge, **params['stats_classification'])
+        #gdf_merge.info()
     # Step 5
     if 'write_csv' in params:
-        gdf_merge_class.to_csv(params['write_csv']['name'])
+        gdf_merge.to_csv(params['write_csv']['name'])
+    if 'return_json' in params:
+        return gdf_merge.to_json()
 
 ## If run from command line, execute script below here
 if __name__ == "__main__":
     lon = -122.6263038077892
     lat = 45.4585072924327
-    get_mapsquare_rasterstats(lon, lat)
+    print(get_mapsquare_rasterstats(lon, lat))
