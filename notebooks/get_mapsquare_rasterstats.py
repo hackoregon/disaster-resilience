@@ -18,10 +18,9 @@
 
 ## Import modules
 import geopandas as gpd
-import numpy as np
 import gdal
 import json
-from osgeo import osr, ogr
+from osgeo import osr
 import pandas as pd
 from pyproj import Geod
 from shapely.geometry import Polygon
@@ -47,7 +46,7 @@ def calc_square_lonlat(lon_lat, xy_offset):
     az = [45, 225]
     lon = 2*[lon_lat[0]]
     lat = 2*[lon_lat[1]]
-    mag = 2*[np.sqrt(2)*xy_offset]
+    mag = 2*[(2**0.5)*xy_offset]
     g = Geod(ellps='WGS84')
     rl_lon, tb_lat, _ = g.fwd(lon, lat, az, mag)
     return (rl_lon, tb_lat)
