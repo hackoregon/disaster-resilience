@@ -17,8 +17,8 @@
 # Copyright (C) 2018, Frederick D. Pearce, get_mapsquare_rasterstats.py
 
 ## Import modules
-import geopandas as gpd
 import gdal
+import geopandas as gpd
 import json
 from osgeo import osr
 import pandas as pd
@@ -28,14 +28,11 @@ from shapely.geometry import Polygon
 from rasterstats import zonal_stats
 
 ## Define functions
-# Define ALL parameters in dictionary (convert to json config file!)
+# ALL parameters defined in dictionary loaded from (default) json config file
 def load_config(fname = "get_mapsquare_rasterstats_CONFIG.json"):
     with open(fname, "r") as f:
         params = json.load(f)
     return params
-
-#def load_params():    
-#    return params
 
 # Functions for building the map square as a shapely polygon
 def calc_square_lonlat(lon_lat, xy_offset):
@@ -110,8 +107,8 @@ def get_raster_info_crs(raster_file, print_info=True):
         return raster_crs.ExportToProj4()
 
 def transform_gdf_to_crsout(gdf, geom_col, crs_out):
-    """Transform list of georeferenced polygon geometries from geopandas
-    dataframe geometry column, geom_col, to the desired output Coordinate Reference, crs_out.
+    """Return copy of georeferenced polygon geometries from geopandas dataframe geometry 
+    column, geom_col, transformed to the desired output Coordinate Reference, crs_out.
     """
     geom_out = gdf[geom_col].copy()
     return geom_out.to_crs(crs_out)
@@ -162,21 +159,21 @@ def get_stats_classification(gdf, **kwargs):
     return gdf
 
 def get_mapsquare_rasterstats(lon, lat):
-    """Perform main calculation given an input longitude, lon, and latitude, lat,
+    """Perform stats calculation given an input longitude, lon, and latitude, lat,
     in decimal degrees (floats) by 
-    1) Loading parameters, 
+    1) Loading parameters from config file, 
     2) Building a square box in lon/lat reference system (WGS84), 
     3) Looping through each input raster file to
         a) Extract the raster's spatial reference info, and (optionally) print info about it 
-        b) Generate a list with a single polygon (a square box) that is transformed
-            from its initial crs (WGS84) to the crs used in the raster file, raster_crs
+        b) Generate a single polygon (a square box) that is transformed from its initial 
+        coordinate reference system (WGS84) to the crs used in the raster file, raster_crs
         c) Use rasterstats to compute analytics on pixel values within square box
-        d) Append the statistics from each raster into a final merged geodataframe
+        d) Append the statistics from each raster into a master, merged geodataframe
     4) Classifying a subset of the geometry statistics (optional), converting the calculated
-        stat in pixel values to a label describing the stats intensity bin (e.g. "low", "high")
-        and append each of these additional columns to gdf_merge
-    5) Outputing results: currently writes final geodataframe, gdf_merge_class, to csv file
-        Change to json output!
+        stat in pixel values to a label describing the stats intensity bin (e.g. "low", "high"),
+        then append each of these additional columns to merged geodataframe, gdf_merge
+    5) Outputing results: currently writes final geodataframe, gdf_merge, to csv file, and/or
+        returns geojson output.
     """
     # Step 1
     params = load_config()
