@@ -3,7 +3,7 @@
 # Brief description: Extract pixel value statistics from a (small) square box within a 
 # a georeferenced raster file
 # 
-# Requirements: Python (3.5+?)
+# Requirements: Python (3.6?)
 # numpy ()
 # pandas ()
 # geopandas ()
@@ -20,6 +20,7 @@
 import geopandas as gpd
 import numpy as np
 import gdal
+import json
 from osgeo import osr, ogr
 import pandas as pd
 from pyproj import Geod
@@ -29,59 +30,13 @@ from rasterstats import zonal_stats
 
 ## Define functions
 # Define ALL parameters in dictionary (convert to json config file!)
-def load_params():
-    params = {
-        'raster': {
-            'root': './CSZ_M9p0_',
-            'names': ['pgv_site', 'PGD_landslide_dry', 'PGD_landslide_wet', 'PGD_liquefaction_wet'],
-            'ext': '.tif'
-        },
-        'geometry': {
-            'from_point': {
-                # xy_offset is half the width (or height) of a square centered on input lon_lat
-                # xy_units MUST be m, ToDo: implement handling of different units
-                'xy_offset': 300,
-                'xy_units': 'm'
-            }
-        },
-        'zonal_stats': {
-            'layer': 1,
-            'stats': ['count', 'min', 'max', 'mean', 'std']
-        },
-        'stats_classification': {
-            'stats_to_class': ['min', 'max', 'mean'],
-            'pgv_site': {
-                'levels': [-9999, 0.1, 1.1, 3.4, 8.1, 16, 31, 60, 116, 9999],
-                'level_labels': ['Not felt (I)', 'Weak (II-III)', 'Light (IV)',
-                                 'Moderate (V)', 'Strong (VI)', 'Very Strong (VII)',
-                                 'Severe (VIII)', 'Violent (IX)', 'Extreme (X)'],
-                'class_name': 'Modified Mercalli Intensity',
-                'class_tag': 'MMI'
-            },
-            'PGD_landslide_dry': {
-                'levels': [-9999, 0, 10, 30, 100, 9999],
-                'level_labels': ['None', 'Low', 'Moderate', 'High', 'Very High'],
-                'class_name': 'Landslide Intensity (Dry)',
-                'class_tag': 'DI'
-            },
-            'PGD_landslide_wet': {
-                'levels': [-9999, 0, 10, 30, 100, 9999],
-                'level_labels': ['None', 'Low', 'Moderate', 'High', 'Very High'],
-                'class_name': 'Landslide Intensity (Wet)',
-                'class_tag': 'DI'
-            },
-            'PGD_liquefaction_wet': {
-                'levels': [-9999, 0, 10, 30, 100, 9999],
-                'level_labels': ['None', 'Low', 'Moderate', 'High', 'Very High'],
-                'class_name': 'Liquefaction Intensity (Wet)',
-                'class_tag': 'DI'
-            }
-        },
-        'write_csv': {
-            'name': "./MapSquareTest_DogamiRasters_stats.csv"
-        }
-    }
+def load_config(fname = "get_mapsquare_rasterstats_CONFIG.json"):
+    with open(fname, "r") as f:
+        params = json.load(f)
     return params
+
+#def load_params():    
+#    return params
 
 # Functions for building the map square as a shapely polygon
 def calc_square_lonlat(lon_lat, xy_offset):
@@ -209,7 +164,7 @@ def get_mapsquare_rasterstats(lon, lat):
         Change to json output!
     """
     # Step 1
-    params = load_params()
+    params = load_config()
     # Step 2
     gdf_merge = get_geometry_from_point([lon, lat], **params['geometry']['from_point'])
     #gdf_merge.info()
