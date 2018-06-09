@@ -43,8 +43,6 @@
             "class_tag": "DI"
         }
     },
-    "write_csv": {
-        "name": "./MapSquareTest_DogamiRasters_stats.csv"
-    }
+    "return_json": {}
 }
 
