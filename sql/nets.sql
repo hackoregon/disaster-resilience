@@ -19,6 +19,3 @@ ALTER TABLE public.nets
 GRANT ALL ON TABLE public."nets" TO "disaster-resilience";
 GRANT SELECT ON TABLE public."nets" TO "disaster-resilience-readonly";
 
-
-COPY nets(description_txt, location_txt, location_dms_val, location_dd_val)
-FROM 'C:\develop\hackoregon\disaster\NET_deployment_sites.csv' DELIMITER ',' CSV HEADER;
