@@ -1,6 +1,6 @@
 -- Table: public.mercalli
 
--- DROP TABLE public.mercalli;
+ DROP TABLE public.mercalli;
 
 CREATE TABLE public.mercalli
 (
