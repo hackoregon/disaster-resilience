@@ -236,4 +236,8 @@ UNION
    FROM loss_neighborhood_unit_phf_m6p8_wet;
 
 ALTER TABLE public.quake_loss_view
-  OWNER TO postgres;
+  OWNER TO "disaster-resilience";
+
+GRANT ALL ON TABLE public."quake_loss_view" TO "disaster-resilience";
+GRANT SELECT ON TABLE public."quake_loss_view" TO "disaster-resilience-readonly";
+
