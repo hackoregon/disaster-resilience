@@ -17,3 +17,6 @@ WITH (
 );
 ALTER TABLE public.mercalli
   OWNER TO "disaster-resilience";
+
+GRANT ALL ON TABLE public."mercalli" TO "disaster-resilience";
+GRANT SELECT ON TABLE public."mercalli" TO "disaster-resilience-readonly";
