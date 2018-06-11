@@ -1,6 +1,6 @@
 -- View: public."POI_view"
 
-DROP VIEW public."POI_view";
+-- DROP VIEW public."POI_view";
 
 CREATE OR REPLACE VIEW public."POI_view" AS 
  SELECT
