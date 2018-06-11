@@ -44,3 +44,6 @@ create table public.disaster_neighborhoods(
 
 alter table public.disaster_neighborhoods
   owner to "disaster-resilience";
+  
+GRANT ALL ON TABLE public."disaster_neighborhoods" TO "disaster-resilience";
+GRANT SELECT ON TABLE public."disaster_neighborhoods" TO "disaster-resilience-readonly";
