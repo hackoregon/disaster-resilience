@@ -4,10 +4,6 @@
 # a georeferenced raster file
 # 
 # Requirements: Python (3.6?)
-# numpy ()
-# pandas ()
-# geopandas ()
-# rasterstats ()
 #
 # Start Date: 6/8/18
 # Last Revision:
@@ -129,7 +125,7 @@ def get_geometry_raster_stats(gdf_merge, raster_params, **zonal_stats_params):
     for raster_name in raster_params['names']:
         # Step 3a 
         raster_file = raster_params['root'] + raster_name + raster_params['ext']
-        print("Computing statistics for raster file = {}".format(raster_file))
+        #print("Computing statistics for raster file = {}".format(raster_file))
         raster_crs = get_raster_info_crs(raster_file, print_info=False)
         # Step 3b
         geom_ras = transform_gdf_to_crsout(gdf_merge, 'geometry', raster_crs)
@@ -181,6 +177,8 @@ def get_mapsquare_rasterstats(lon, lat):
     gdf_merge = get_geometry_from_point([lon, lat], **params['geometry']['from_point'])
     # Steps 3a-3d: repeat stats calculation for each raster file, append all results to gdf_merge
     gdf_merge = get_geometry_raster_stats(gdf_merge, params['raster'], **params['zonal_stats'])
+    # *Hack job: After loop, compute total deformation for wet season
+    gdf_merge['PGD_total_wet_mean'] = gdf_merge['PGD_landslide_wet_mean'] + gdf_merge['PGD_liquefaction_wet_mean']
     # Step 4
     if 'stats_classification' in params:
         gdf_merge = get_stats_classification(gdf_merge, **params['stats_classification'])
@@ -190,6 +188,10 @@ def get_mapsquare_rasterstats(lon, lat):
         gdf_merge.to_csv(params['write_csv']['name'])
     if 'return_json' in params:
         return gdf_merge.to_json()
+    elif 'return_dict' in params:
+        return gdf_merge.to_dict()
+    elif 'return_geodf' in params:
+        return gdf_merge
 
 ## If run from command line, execute script below here
 if __name__ == "__main__":
