@@ -33,4 +33,7 @@ CREATE OR REPLACE VIEW public.neighborhood_view AS
      JOIN neighborhoods_regions nr ON nr.id = nu.nuid::numeric;
 
 ALTER TABLE public.neighborhood_view
-  OWNER TO postgres;
+  OWNER TO "disaster-resilience";
+
+GRANT ALL ON TABLE public."neighborhood_view" TO "disaster-resilience";
+GRANT SELECT ON TABLE public."neighborhood_view" TO "disaster-resilience-readonly";
