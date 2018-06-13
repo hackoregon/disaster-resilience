@@ -4,7 +4,7 @@
 -- DROP VIEW public.disaster_neighborhood_view;
 
 CREATE OR REPLACE VIEW public.disaster_neighborhood_view AS 
- SELECT 
+SELECT 
     dn.id,
     dn.name,
     dn.wkb_geometry,
@@ -42,20 +42,17 @@ CREATE OR REPLACE VIEW public.disaster_neighborhood_view AS
     dn.pgd_liquefaction_wet_max_di,
     dn.pgd_liquefaction_wet_mean_di,
     dn.pgd_total_wet_mean_di,
-    mmin.id AS pgv_site_min_mmi_id,
     ((mmin.detail_txt::text || ' ('::text) || mmin.value_txt::text) || ')'::text AS pgv_site_min_mmi_txt,
-    mmax.id AS pgv_site_max_mmi_id,
     ((mmax.detail_txt::text || ' ('::text) || mmax.value_txt::text) || ')'::text AS pgv_site_max_mmi_txt,
-    mmean.id AS pgv_site_mean_mmi_id,
     ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt
    FROM disaster_neighborhoods dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
      JOIN mercalli mmean ON mmean.id = dn.pgv_site_mean_mmi
- union
+UNION
  SELECT
-    dn.id,
-    'Grid' as name,
+    dn.id+1000,
+    'Grid'::character varying AS name,
     dn.wkb_geometry,
     dn.pgv_site_count,
     dn.pgv_site_max,
@@ -91,11 +88,8 @@ CREATE OR REPLACE VIEW public.disaster_neighborhood_view AS
     dn.pgd_liquefaction_wet_max_di,
     dn.pgd_liquefaction_wet_mean_di,
     dn.pgd_total_wet_mean_di,
-    mmin.id AS pgv_site_min_mmi_id,
     ((mmin.detail_txt::text || ' ('::text) || mmin.value_txt::text) || ')'::text AS pgv_site_min_mmi_txt,
-    mmax.id AS pgv_site_max_mmi_id,
     ((mmax.detail_txt::text || ' ('::text) || mmax.value_txt::text) || ')'::text AS pgv_site_max_mmi_txt,
-    mmean.id AS pgv_site_mean_mmi_id,
     ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt
    FROM disaster_neighborhood_grid dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
