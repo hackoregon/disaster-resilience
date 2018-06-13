@@ -43,8 +43,11 @@ SELECT
     dn.pgd_liquefaction_wet_mean_di,
     dn.pgd_total_wet_mean_di,
     ((mmin.detail_txt::text || ' ('::text) || mmin.value_txt::text) || ')'::text AS pgv_site_min_mmi_txt,
+	mmin.description_txt::text as pgv_site_min_desc,
     ((mmax.detail_txt::text || ' ('::text) || mmax.value_txt::text) || ')'::text AS pgv_site_max_mmi_txt,
-    ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt
+	mmax.description_txt::text as pgv_site_max_desc,
+    ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt,
+	mmean.description_txt::text as pgv_site_mean_desc
    FROM disaster_neighborhoods dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
@@ -89,8 +92,11 @@ UNION
     dn.pgd_liquefaction_wet_mean_di,
     dn.pgd_total_wet_mean_di,
     ((mmin.detail_txt::text || ' ('::text) || mmin.value_txt::text) || ')'::text AS pgv_site_min_mmi_txt,
+	mmin.description_txt::text as pgv_site_min_desc,
     ((mmax.detail_txt::text || ' ('::text) || mmax.value_txt::text) || ')'::text AS pgv_site_max_mmi_txt,
-    ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt
+	mmax.description_txt::text as pgv_site_max_desc,
+    ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt,
+	mmean.description_txt::text as pgv_site_mean_desc
    FROM disaster_neighborhood_grid dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
