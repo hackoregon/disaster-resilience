@@ -47,11 +47,14 @@ SELECT
     ((mmax.detail_txt::text || ' ('::text) || mmax.value_txt::text) || ')'::text AS pgv_site_max_mmi_txt,
 	mmax.description_txt::text as pgv_site_max_desc,
     ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt,
-	mmean.description_txt::text as pgv_site_mean_desc
+	mmean.description_txt::text as pgv_site_mean_desc,
+    n.census_response_rate,
+    n.quadrant
    FROM disaster_neighborhoods dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
      JOIN mercalli mmean ON mmean.id = dn.pgv_site_mean_mmi
+	 join neighborhood n on n.name = dn.name
 UNION
  SELECT
     dn.id+1000,
@@ -96,7 +99,9 @@ UNION
     ((mmax.detail_txt::text || ' ('::text) || mmax.value_txt::text) || ')'::text AS pgv_site_max_mmi_txt,
 	mmax.description_txt::text as pgv_site_max_desc,
     ((mmean.detail_txt::text || ' ('::text) || mmean.value_txt::text) || ')'::text AS pgv_site_mean_mmi_txt,
-	mmean.description_txt::text as pgv_site_mean_desc
+	mmean.description_txt::text as pgv_site_mean_desc,
+	'' as census_response_rate,
+    '' as quadrant
    FROM disaster_neighborhood_grid dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
