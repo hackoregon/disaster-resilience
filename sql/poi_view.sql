@@ -53,7 +53,21 @@ UNION
     schools.state,
     schools.zipcode,
     (st_dump(st_transform(schools.wkb_geometry, 4326))).geom AS wkb_geometry
-   FROM schools;
+   FROM schools
+UNION
+	SELECT
+		'COMMCTR'||ogc_fid as pk_id,
+		ogc_fid,
+		'COMMCTR' as type,
+		name as description_txt, 
+		owner as description2_txt,
+		address||' '||address2 as address, 
+		city, 
+		state, 
+		zipcode||' ' ||zip4 as zipcode,
+		wkb_geometry
+	FROM public.community_centers;
+
 
 ALTER TABLE public."POI_view"
   OWNER TO "disaster-resilience";
