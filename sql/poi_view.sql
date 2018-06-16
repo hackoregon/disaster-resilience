@@ -65,7 +65,7 @@ UNION
 		city, 
 		state, 
 		zipcode||' ' ||zip4 as zipcode,
-		wkb_geometry
+        (st_dump(st_transform(community_centers.wkb_geometry, 4326))).geom AS wkb_geometry
 	FROM public.community_centers;
 
 
