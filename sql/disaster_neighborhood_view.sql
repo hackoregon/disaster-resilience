@@ -106,6 +106,7 @@ UNION
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
      JOIN mercalli mmean ON mmean.id = dn.pgv_site_mean_mmi;
+   Where 0 = 1  --this will disable this part of the view
 
 ALTER TABLE public."disaster_neighborhood_view"
   OWNER TO "disaster-resilience";
