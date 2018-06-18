@@ -86,7 +86,7 @@ CREATE MATERIALIZED VIEW public.disaster_neighborhood_view AS
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
      JOIN mercalli mmean ON mmean.id = dn.pgv_site_mean_mmi
      JOIN neighborhood n ON n.name::text = dn.name::text
-	 JOIN loss_neighborhood_census nl on nl.neighborhood_id = n.id
+	 JOIN loss_neighborhood_census nl on nl.neighborhood_id = n.id and nl.scenario_cd = 'wet'
 WITH DATA;
 
 ALTER TABLE public.disaster_neighborhood_view
