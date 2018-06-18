@@ -57,12 +57,36 @@ CREATE MATERIALIZED VIEW public.disaster_neighborhood_view AS
 	n.permanentresidents,
 	n.dayoccupants,
 	n.nightoccupants,
-	n.total_population
+	n.total_population,
+	nl.scenario_cd,
+	nl.buildingloss,
+	nl.contentloss,
+	nl.debris,
+	nl.displacedpopulation,
+	nl.buildings_nodamage,
+	nl.buildings_slightdamage,
+	nl.buildings_moderatedamage,
+	nl.buildings_extensivedamage,
+	nl.buildings_completedamage,
+	nl.casualtiestotal_day,
+	nl.casualtieslevel1_day,
+	nl.casualtieslevel2_day,
+	nl.casualtieslevel3_day,
+	nl.fatalitiestotal_day,
+	nl.casualtiestotal_night,
+	nl.casualtieslevel1_night,
+	nl.casualtieslevel2_night,
+	nl.casualtieslevel3_night,
+	nl.fatalitiestotal_night,
+	nl.injuriestotal_day,
+	nl.injuriestotal_night,
+	nl.displaced_percap
    FROM disaster_neighborhoods dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
      JOIN mercalli mmean ON mmean.id = dn.pgv_site_mean_mmi
      JOIN neighborhood n ON n.name::text = dn.name::text
+	 JOIN loss_neighborhood_census nl on nl.neighborhood_id = n.id
 WITH DATA;
 
 ALTER TABLE public.disaster_neighborhood_view
