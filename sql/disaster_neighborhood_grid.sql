@@ -5,6 +5,10 @@
 CREATE TABLE public.disaster_neighborhood_grid
 (
   id integer NOT NULL,
+  centroidx character varying(255),
+  centroidy character varying(255),
+  x_simple character varying(255),
+  y_simple character varying(255),
   wkb_geometry geometry,
   pgv_site_count character varying(255),
   pgv_site_max character varying(255),
