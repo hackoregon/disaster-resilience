@@ -80,7 +80,8 @@ CREATE MATERIALIZED VIEW public.disaster_neighborhood_view AS
 	nl.fatalitiestotal_night,
 	nl.injuriestotal_day,
 	nl.injuriestotal_night,
-	nl.displaced_percap
+	nl.displaced_percap,
+	ST_AsGeoJSON(dn.wkb_geometry) as ngeo_json
    FROM disaster_neighborhoods dn
      JOIN mercalli mmin ON mmin.id = dn.pgv_site_min_mmi
      JOIN mercalli mmax ON mmax.id = dn.pgv_site_max_mmi
